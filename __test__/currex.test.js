@@ -8,4 +8,13 @@ describe ('CurrEx', () => {
 		expect(currInput.convertAmt).toEqual(134.56);
 	})
 
+	describe ('apiGet', () => {
+
+		test('fetches exchange API, holds JSON.parse', () => {
+			const currInput = new CurrEx(134.56, 'USD');
+			const apiGetResult = apiGet(currInput.convertFrom);
+			expect(apiGetResult).toEqual("success");
+		})
+	})
+
 })
