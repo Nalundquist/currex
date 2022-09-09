@@ -1,3 +1,5 @@
+import {currCalc} from './index.js'
+
 export class CurrEx {
 
 	constructor(amount, currency){
@@ -31,8 +33,7 @@ export class CurrEx {
 			currRequest.send();
 		})
 		currPromise.then(function(response){
-			storeApi(response)
-			console.log(this.storedApi);
+			currCalc(response)
 		}, function(errorMessage){
 			errorReturn(errorMessage);
 		})
