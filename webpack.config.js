@@ -18,11 +18,11 @@ module.exports = {
     new ESLintPlugin(),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: 'Currency Exchange',
+      title: 'currency-exchange',
       template: './src/index.html',
       inject: 'body'
     }),
-    new Dotenv()
+    new Dotenv(),
   ],
   module: {
     rules: [

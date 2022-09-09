@@ -12,8 +12,9 @@ describe ('CurrEx', () => {
 
 		test('fetches exchange API, holds JSON.parse', () => {
 			const currInput = new CurrEx(134.56, 'USD');
-			const apiGetResult = apiGet(currInput.convertFrom);
-			expect(apiGetResult).toEqual("success");
+			currInput.apiGet();
+			const apiGetResult = response.json
+			expect(apiGetResult.result).toEqual("success");
 		})
 	})
 
