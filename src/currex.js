@@ -1,6 +1,6 @@
 import {errorReturn} from './index.js';
-import {currCalc} from './currcalc.js';
-// import {currDisplay} from './index.js';
+// import {currCalc} from './currcalc.js';
+import {currDisplay} from './index.js';
 
 export class CurrEx {
 
@@ -17,6 +17,34 @@ export class CurrEx {
 	// 		console.log(sessionStorage);
 	// 	}
 	// 	this.storedApi = sessionStorage;
+	// }
+
+	// currCalc(response) {
+	// 	this.convertMult = 0;
+	// 	this.convertFinal = 0;
+	// 	if (this.convertTo === "USD"){
+	// 		this.convertMult = response.conversion_rates.USD;
+	// 	} if (this.convertTo === "TND"){
+	// 		this.convertMult = response.conversion_rates.TNR;
+	// 	} if (this.convertTo === "OMR"){
+	// 		this.convertMult = response.conversion_rates.OMR;
+	// 	} if (this.convertTo === "NPR"){
+	// 		this.convertMult = response.conversion_rates.NPR;
+	// 	} if (this.convertTo === "STN"){
+	// 		this.convertMult = response.conversion_rates.STN;
+	// 	} if (this.convertTo === "RUB"){
+	// 		this.convertMult = response.conversion_rates.RUB;
+	// 	} if (this.convertTo === "SEK"){
+	// 		this.convertMult = response.conversion_rates.SEK;
+	// 	} if (this.convertTo === "HTG"){
+	// 		this.convertMult = response.conversion_rates.HTG;
+	// 	} if (this.convertTo === "CLP"){
+	// 		this.convertMult = response.conversion_rates.CLP;
+	// 	} else {
+	// 		this.errorMessage = `${this.convertTo} is an unsupported currency at this time, apologies for the inconvenience.`;
+	// 	}
+	// 	this.convertFinal = (this.convertAmt * this.convertMult).toFloat(2);
+	// 	currDisplay(this.convertTo, this.convertFrom, this.convertAmt, this.convertFinal);
 	// }
 	
 	apiGet() {
@@ -36,10 +64,35 @@ export class CurrEx {
 			currRequest.open("GET", url, true);
 			currRequest.send();
 		})
-		currPromise.then(function(response) {
-			console.log(response)
-			currCalc(response);
-		}, function(errorMessage) {
+		currPromise.then((response) => {
+			// console.log(response)
+			// CurrEx.currCalc(response);
+			this.convertMult = 0;
+			this.convertFinal = 0;
+			if (this.convertTo === "USD"){
+				this.convertMult = response.conversion_rates.USD;
+			} if (this.convertTo === "TND"){
+				this.convertMult = response.conversion_rates.TNR;
+			} if (this.convertTo === "OMR"){
+				this.convertMult = response.conversion_rates.OMR;
+			} if (this.convertTo === "NPR"){
+				this.convertMult = response.conversion_rates.NPR;
+			} if (this.convertTo === "STN"){
+				this.convertMult = response.conversion_rates.STN;
+			} if (this.convertTo === "RUB"){
+				this.convertMult = response.conversion_rates.RUB;
+			} if (this.convertTo === "SEK"){
+				this.convertMult = response.conversion_rates.SEK;
+			} if (this.convertTo === "HTG"){
+				this.convertMult = response.conversion_rates.HTG;
+			} if (this.convertTo === "CLP"){
+				this.convertMult = response.conversion_rates.CLP;
+			} else {
+				this.errorMessage = `${this.convertTo} is an unsupported currency at this time, apologies for the inconvenience.`;
+			}
+			this.convertFinal = (this.convertAmt * this.convertMult)
+			currDisplay(this.convertTo, this.convertFrom, this.convertAmt, this.convertFinal);
+		}, (errorMessage) => {
 			errorReturn(errorMessage);
 		});
 	}
