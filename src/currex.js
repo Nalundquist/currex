@@ -9,17 +9,24 @@ export class CurrEx {
 
 	apiGet() {
 		const convertFrom = this.convertFrom
-		 return fetch(`https://v6.exchangerate-api.com/v6/${process.env.API_KEY}/latest/${convertFrom}`)
-			.then(function(response){
-				if (!response.ok) {
-					const errorMsg = `${response.result} ${response.error-type}`
-					throw new Error(errorMsg); 
+		let currPromise = new Promise(function(resolve, reject){
+			const currRequest = new XMLHttpRequest;
+			const url = `https://v6.exchangerate-api.com/v6/${process.env.API_KEY}/latest/${convertFrom}`
+			currRequest.addEventListener("loadend", function(){
+				const currResponse = JSON.parse(this.responseText);
+				if (this.status === 200){
+					resolve(currResponse);
 				} else {
-					return response.json();
+					reject([this, currResponse]);
 				}
 			})
-			.catch(function(error) {
-				return error;
-			});
+			currRequest.open("GET", url, true);
+			currRequest.send();
+		})
+		currPromise.then(function(response){
+			return response.result;
+		}, function(response){
+			return response.result;
+		})
 	}
 }
