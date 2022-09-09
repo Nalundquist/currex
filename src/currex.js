@@ -9,44 +9,6 @@ export class CurrEx {
 		this.convertFrom = currencyFrom;
 		this.convertTo = currencyTo;
 	}
-
-	// storeApi(currApi){
-	// 	for (i = 0; i > currApi.conversion_rates.length; i++) () => {
-	// 		sessionStorage.setItem(currApi.conversion_rates[i].key);
-	// 		sessionStorage.setItem(currApi.conversion_rates[i].value);
-	// 		console.log(sessionStorage);
-	// 	}
-	// 	this.storedApi = sessionStorage;
-	// }
-
-	// currCalc(response) {
-	// 	this.convertMult = 0;
-	// 	this.convertFinal = 0;
-	// 	if (this.convertTo === "USD"){
-	// 		this.convertMult = response.conversion_rates.USD;
-	// 	} if (this.convertTo === "TND"){
-	// 		this.convertMult = response.conversion_rates.TNR;
-	// 	} if (this.convertTo === "OMR"){
-	// 		this.convertMult = response.conversion_rates.OMR;
-	// 	} if (this.convertTo === "NPR"){
-	// 		this.convertMult = response.conversion_rates.NPR;
-	// 	} if (this.convertTo === "STN"){
-	// 		this.convertMult = response.conversion_rates.STN;
-	// 	} if (this.convertTo === "RUB"){
-	// 		this.convertMult = response.conversion_rates.RUB;
-	// 	} if (this.convertTo === "SEK"){
-	// 		this.convertMult = response.conversion_rates.SEK;
-	// 	} if (this.convertTo === "HTG"){
-	// 		this.convertMult = response.conversion_rates.HTG;
-	// 	} if (this.convertTo === "CLP"){
-	// 		this.convertMult = response.conversion_rates.CLP;
-	// 	} else {
-	// 		this.errorMessage = `${this.convertTo} is an unsupported currency at this time, apologies for the inconvenience.`;
-	// 	}
-	// 	this.convertFinal = (this.convertAmt * this.convertMult).toFloat(2);
-	// 	currDisplay(this.convertTo, this.convertFrom, this.convertAmt, this.convertFinal);
-	// }
-	
 	apiGet() {
 		const convertFrom = this.convertFrom
 		let currPromise = new Promise(function(resolve, reject){
@@ -65,33 +27,34 @@ export class CurrEx {
 			currRequest.send();
 		})
 		currPromise.then((response) => {
-			// console.log(response)
-			// CurrEx.currCalc(response);
 			this.convertMult = 0;
 			this.convertFinal = 0;
+			this.errorMessage = "";
 			if (this.convertTo === "USD"){
 				this.convertMult = response.conversion_rates.USD;
-			} if (this.convertTo === "TND"){
+			} else if (this.convertTo === "TND"){
 				this.convertMult = response.conversion_rates.TNR;
-			} if (this.convertTo === "OMR"){
+			} else if (this.convertTo === "OMR"){
 				this.convertMult = response.conversion_rates.OMR;
-			} if (this.convertTo === "NPR"){
+			} else if (this.convertTo === "NPR"){
 				this.convertMult = response.conversion_rates.NPR;
-			} if (this.convertTo === "STN"){
+			} else if (this.convertTo === "STN"){
 				this.convertMult = response.conversion_rates.STN;
-			} if (this.convertTo === "RUB"){
+			} else if (this.convertTo === "RUB"){
 				this.convertMult = response.conversion_rates.RUB;
-			} if (this.convertTo === "SEK"){
+			} else if (this.convertTo === "SEK"){
 				this.convertMult = response.conversion_rates.SEK;
-			} if (this.convertTo === "HTG"){
+			} else if (this.convertTo === "HTG"){
 				this.convertMult = response.conversion_rates.HTG;
-			} if (this.convertTo === "CLP"){
+			} else if (this.convertTo === "CLP"){
 				this.convertMult = response.conversion_rates.CLP;
+			} else if (this.convertTo === "KPW"){
+				this.errorMessage = `North Korean Won is an unsupported currency at this time, apologies for the inconvenience.`;
 			} else {
-				this.errorMessage = `${this.convertTo} is an unsupported currency at this time, apologies for the inconvenience.`;
+				this.errorMessage = `Error: Unsupported Currency`
 			}
 			this.convertFinal = (this.convertAmt * this.convertMult)
-			currDisplay(this.convertTo, this.convertFrom, this.convertAmt, this.convertFinal);
+			currDisplay(this.convertTo, this.convertFrom, this.convertAmt, this.convertFinal, this.errorMessage);
 		}, (errorMessage) => {
 			errorReturn(errorMessage);
 		});

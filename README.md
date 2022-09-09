@@ -8,9 +8,12 @@
 
 ## Description
 
-  
+An exercise in API usage and promises done as a part of my curriculum at Epicodus.  Converts between 9 currencies I chose at random aside from defaulting to USD because its the only currency I know well.  I could not think of a way to make this particularly entertaining.  
 
 ## Features
+
+* Converts 9 different currencies amongst one another
+* Calls upon an API
 
 
 ## Technologies Used
@@ -26,6 +29,8 @@
 	* Babel
 	* Jest
 
+* Calls upon the [exchangerate-api](https://exchangerate-api.com)
+
 * Tested in the following browsers:
 	* Google Chrome (v.104.0)
 
@@ -37,7 +42,7 @@
 
 		>git clone https://github.com/nalundquist/currex
 
-* Enter the cloned project folder "supgalacal" and type:
+* Enter the cloned project folder "currex" and type:
 
 		>npm install
 
@@ -46,6 +51,15 @@
 		>npm run start
 
 * To host the site on your machine at localhost:8080.
+
+Currency exchange functionality will *not* be available until you do the following:
+
+* Make an account on [exchangerate-api](https://exchangerate-api.com)
+* Apply for an API key.  The free tier will suffice for 1500 queries a month.
+* Create a .env file in the root of the "currex" folder
+* Open the .env file in VS Code or the editor of your choice and put "API_KEY=[your api key here]"
+
+Once the above is done the API key will automatically be used in pulling the calculations from ExchangeRate-API.
 
 ## Known Bugs
 
