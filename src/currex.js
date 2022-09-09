@@ -1,5 +1,6 @@
-import {currCalc} from './index.js';
 import {errorReturn} from './index.js';
+import {currCalc} from './currcalc.js';
+// import {currDisplay} from './index.js';
 
 export class CurrEx {
 
@@ -17,7 +18,7 @@ export class CurrEx {
 	// 	}
 	// 	this.storedApi = sessionStorage;
 	// }
-
+	
 	apiGet() {
 		const convertFrom = this.convertFrom
 		let currPromise = new Promise(function(resolve, reject){
@@ -27,6 +28,7 @@ export class CurrEx {
 				const currResponse = JSON.parse(this.responseText);
 				if (this.status === 200){
 					resolve(currResponse);
+					console.log(currResponse);
 				} else {
 					reject([this, currResponse]);
 				}
@@ -34,37 +36,13 @@ export class CurrEx {
 			currRequest.open("GET", url, true);
 			currRequest.send();
 		})
-		currPromise.then(function(response){
-			currCalc(response)
-		}, function(errorMessage){
+		currPromise.then(function(response) {
+			console.log(response)
+			currCalc(response);
+		}, function(errorMessage) {
 			errorReturn(errorMessage);
-		})
+		});
 	}
 
-	currCalc(response) {
-		if (this.convertTo = "USD"){
-			this.convertMult = response.conversion_rates.USD;
-		} if (this.convertTo = "TND"){
-			this.convertMult = response.conversion_rates.TNR;
-		} if (this.convertTo = "OMR"){
-			this.convertMult = response.conversion_rates.OMR;
-		} if (this.convertTo = "NPR"){
-			this.convertMult = response.conversion_rates.NPR;
-		} if (this.convertTo = "STN"){
-			this.convertMult = response.conversion_rates.STN;
-		} if (this.convertTo = "RUB"){
-			this.convertMult = response.conversion_rates.RUB;
-		} if (this.convertTo = "SEK"){
-			this.convertMult = response.conversion_rates.SEK;
-		} if (this.convertTo = "HTG"){
-			this.convertMult = response.conversion_rates.HTG;
-		} if (this.convertTo = "CLP"){
-			this.convertMult = response.conversion_rates.CLP;
-		} else {
-			this.errorMessage = `${this.convertTo} is an unsupported currency at this time, apologies for the inconvenience.`;
-		}
-		this.convertFinal = this.convertAmt * this.convertTo
-		currDisplay(this.convertFinal, )
-	}
 
 }
