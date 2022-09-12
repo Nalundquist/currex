@@ -1,13 +1,11 @@
 import './css/styles.css';
 import { CurrEx } from './currex.js';
 
-
 export const errorReturn = (errorMessage) => {
 	const convResult = document.getElementById("convert-result");
 	convResult.innerHTML = null
 	const h4 = document.createElement("h4");
 	convResult.append(h4);
-	console.log(errorMessage)
 	h4.append(`Cannot convert currencies: ${errorMessage[0].status} ${errorMessage[1].result} - ${errorMessage[1].errortype}`)
 	convResult.setAttribute("class", "result-display");
 	convResult.removeAttribute("class", "hidden")
@@ -37,25 +35,18 @@ export const currDisplay = (to, from, amt, final, error) => {
 
 const formSubmit = (event) => {
 	event.preventDefault();
-
 	const convResult = document.getElementById("convert-result");
 	convResult.innerHTML = null;
 	convResult.setAttribute("class", "hidden");
 	convResult.removeAttribute("class", "result-display")
-
 	const convertFrom = document.getElementById("convert-from").value;
-	console.log(convertFrom);
 	const convertTo = document.getElementById("convert-to").value;
-	console.log(convertTo);
 	const convertAmt = document.getElementById("convert-amt").value;
 	document.getElementById("convert-from").value = "USD";
 	document.getElementById("convert-to").value = "USD";
 	document.getElementById("convert-amt").value = 0.00;
-
 	let currEx = new CurrEx(convertAmt, convertFrom, convertTo);
-
 	currEx.apiGet();
-
 }
 
 window.addEventListener("load", function(){
